@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ARMS Tech Innovations</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Font + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <meta name="description" content="ARMS Tech Innovations — Web, Mobile & Cloud Solutions" />
+
+  <style>
+    :root {
+      --bg:#0b1320;
+      --accent:#00bcd4;
+      --accent-2:#0097a7;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --radius:14px;
+      --header-height:72px;
+    }
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: #f6f8fb;
+      color:#0b1220;
+      line-height:1.45;
+    }
+
+    /* Navbar */
+    .navbar { transition: all .25s ease; }
+    .navbar.scrolled {background:rgba(255,255,255,0.95)!important;box-shadow:0 6px 20px rgba(10,18,28,0.35)}
+
+    /* Buttons */
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white!important;padding:.6rem 1rem;border-radius:999px;font-weight:700;box-shadow:0 8px 26px rgba(0,188,212,0.18);transition:.3s}
+    .ghost{border:1px solid rgba(255,255,255,0.2);padding:.6rem 1rem;border-radius:12px;color:white!important;font-weight:600;transition:.3s;}
+
+    /* Hover & tap effects */
+    .cta:hover, .ghost:hover, .service:hover, .spec i:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(0,188,212,0.35);
+    }
+    @media (hover: none) {
+      .cta, .ghost, .service, .spec i {
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .cta:active, .ghost:active, .service:active, .spec i:active {
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 10px 30px rgba(0,188,212,0.35);
+      }
+    }
+
+    .cta:hover{transform:translateY(-3px) scale(1.03);}
+    .ghost:hover{background:rgba(255,255,255,0.08);border-color:var(--accent);color:var(--accent)!important;transform:translateY(-2px)}
+
+    /* Hero */
+    .hero{min-height:calc(100vh - var(--header-height));margin-top:var(--header-height);position:relative;display:grid;place-items:center;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 10% 10%, rgba(0,188,212,0.09), transparent 8%),radial-gradient(circle at 90% 80%, rgba(0,151,167,0.07), transparent 12%),linear-gradient(135deg,#071425 0%, #0d2b37 60%);}
+    .bg-band{position:absolute;left:-10%;right:-10%;height:60%;top:10%;opacity:0.06;background:linear-gradient(90deg,#00bcd4,#0097a7);filter:blur(60px);transform:rotate(-6deg)}
+    .bg-band.two{top:40%;transform:rotate(6deg);opacity:0.045}
+    .hero-card{background:rgba(255,255,255,0.05);padding:18px;border-radius:14px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.1);box-shadow:0 6px 30px rgba(4,8,12,0.5);transition:.3s;}
+    .hero-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,0.12);}
+    .spec{display:flex;gap:12px;align-items:center;color:#dff7fb}
+    .spec i{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.06);font-size:1.05rem;transition:.35s;}
+    .spec i:hover{transform:scale(1.15) rotate(6deg);box-shadow:0 0 20px rgba(0,188,212,0.5)}
+
+    /* Sections */
+    section{padding:80px 0}
+    .service{background:var(--card);padding:18px;border-radius:12px;transition:.3s;border:1px solid rgba(0,0,0,0.05);}
+    .service:hover{transform:translateY(-10px);box-shadow:0 18px 40px rgba(16,24,32,0.08);}
+    .service .icon{width:60px;height:60px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;margin-bottom:12px;font-size:1.3rem;transition:.3s;}
+    .service .icon:hover{transform:scale(1.15) rotate(6deg);box-shadow:0 0 20px rgba(0,188,212,0.5);}
+
+    /* Animations */
+    .fade-up{opacity:0;transform:translateY(18px);transition:all .6s}
+    .fade-up.inview{opacity:1;transform:translateY(0)}
+    .slide-left{opacity:0;transform:translateX(-50px);transition:all .8s}
+    .slide-left.inview{opacity:1;transform:translateX(0)}
+    .slide-right{opacity:0;transform:translateX(50px);transition:all .8s}
+    .slide-right.inview{opacity:1;transform:translateX(0)}
+    .zoom-in{opacity:0;transform:scale(0.85);transition:all .7s}
+    .zoom-in.inview{opacity:1;transform:scale(1)}
+
+    /* Toast */
+    .toast-custom{position:fixed;right:24px;bottom:24px;z-index:1500;}
+
+    a.cta,
+    a.ghost {
+      text-decoration: none; /* removes underline */
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top bg-white">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#home">
+        <img src="static/logofinal1.png" alt="ARMS Logo" style="height:85px">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+          <li class="nav-item"><a class="nav-link fw-semibold" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="cta nav-link text-white" href="#services"><i class="fas fa-rocket"></i> Our Services</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero text-white" id="home">
+    <div class="hero-bg"></div>
+    <div class="container position-relative z-2">
+      <div class="row align-items-center">
+        <div class="col-lg-7 fade-up">
+          <h2 class="fw-bold display-5">Innovating digital solutions for growth-focused teams.</h2>
+          <p class="mb-3">Empowering small businesses with creative digital solutions. We design stunning websites, build functional web apps, craft eye-catching graphics, and create thumbnails that make your brand stand out.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#services" class="cta"><i class="fas fa-hammer"></i> Explore Services</a>
+            <a href="#contact" class="ghost"><i class="fas fa-envelope"></i> Contact Us</a>
+          </div>
+          <div class="small text-light mt-3">Trusted by startups & enterprises • Rapid prototyping • Secure deployments</div>
+        </div>
+        <div class="col-lg-5 zoom-in">
+          <div class="hero-card">
+            <h4>What we offer</h4>
+            <div class="d-flex flex-column gap-2 mt-2">
+              <div class="spec"><i class="fas fa-code"></i> Web Development</div>
+              <div class="spec"><i class="fas fa-paint-brush"></i> Web Designing</div>
+              <div class="spec"><i class="fas fa-pencil-ruler"></i> Graphic Designing</div>
+              <div class="spec"><i class="fas fa-lock"></i> Security & Auth</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-band"></div>
+    <div class="bg-band two"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h3>Who we are</h3>
+        <p class="text-muted">ARMS Tech Innovations delivers thoughtful product engineering with a focus on clarity, performance, and security.</p>
+      </div>
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <p class="text-muted">We are a team of engineers, designers, and cloud specialists who help businesses design, build and scale software products.</p>
+          <div class="row mt-3 g-3">
+            <div class="col-md-6 slide-left">
+              <div class="p-3 bg-white rounded shadow-sm h-100">
+                <h5>Why choose us</h5>
+                <p class="small text-muted">Clear timelines, dedicated engineers, and production-ready code.</p>
+              </div>
+            </div>
+            <div class="col-md-6 slide-right">
+              <div class="p-3 bg-white rounded shadow-sm h-100">
+                <h5>Our process</h5>
+                <p class="small text-muted">Discovery → Prototype → Build → Launch → Operate.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 slide-right">
+          <img class="rounded shadow-sm w-100" style="object-fit:cover;height:260px" src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=900&auto=format&fit=crop" alt="Team working">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h3>Our Services</h3>
+        <p class="text-muted">From MVPs to enterprise platforms — we deliver end-to-end software solutions.</p>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service h-100 text-center">
+            <div class="icon"><i class="fas fa-laptop-code"></i></div>
+            <h5>Web Development</h5>
+            <p class="text-muted">Modern, responsive web apps built with the latest technologies.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service h-100 text-center">
+            <div class="icon"><i class="fas fa-paint-brush"></i></div>
+            <h5>Web Designing</h5>
+            <p class="text-muted">Creative and user-friendly designs with modern UI/UX trends.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service h-100 text-center">
+            <div class="icon"><i class="fas fa-pencil-ruler"></i></div>
+            <h5>Graphic Designing</h5>
+            <p class="text-muted">Logos, branding, and stunning graphics for your business.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service h-100 text-center">
+            <div class="icon"><i class="fas fa-user-shield"></i></div>
+            <h5>Security</h5>
+            <p class="text-muted">Authentication, encryption, and compliance made simple.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 fade-up">
+          <div class="service h-100 text-center">
+            <div class="icon"><i class="fas fa-headset"></i></div>
+            <h5>Support</h5>
+            <p class="text-muted">Reliable maintenance and dedicated support for your product.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h3>Get in Touch</h3>
+        <p class="text-muted">Let’s talk about your project needs and how we can help.</p>
+      </div>
+      <div class="row g-4 d-flex align-items-stretch">
+        <div class="col-lg-6">
+          <form id="contactForm" class="d-flex flex-column gap-3 h-100">
+            <input type="text" class="form-control" placeholder="Your name" required>
+            <input type="email" class="form-control" placeholder="Email address" required>
+            <textarea class="form-control" rows="5" placeholder="Your message" required></textarea>
+            <button type="submit" class="btn btn-lg btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-3 bg-white rounded shadow-sm h-100 d-flex flex-column ">
+            <h5>Contact Info</h5>
+            <p class="small text-muted">Email: hello@armstech.com<br/></p>
+            <p class="small text-muted">We typically respond within 1 business day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-light py-3">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <div>© 2025 ARMS Tech Innovations — All rights reserved.</div>
+      <div class="d-flex gap-3">
+        <a href="#" class="text-light"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+        <a href="#" class="text-light"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast align-items-center text-bg-dark border-0 toast-custom" id="toastMsg" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">Message sent — we'll contact you soon!</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sticky header
+    const navbar=document.querySelector(".navbar");
+    window.addEventListener("scroll",()=>{window.scrollY>50?navbar.classList.add("scrolled"):navbar.classList.remove("scrolled")});
+
+    // Scroll animations
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("inview");
+          observer.unobserve(entry.target); // stop observing
+        }
+      });
+    },{threshold:0.05}); // lower threshold for mobile
+    document.querySelectorAll(".fade-up,.slide-left,.slide-right,.zoom-in").forEach(el=>observer.observe(el));
+
+    // Toast on form submit
+    const toastLive=document.getElementById("toastMsg");
+    const form=document.getElementById("contactForm");
+    form.addEventListener("submit",e=>{
+      e.preventDefault();
+      const toastBootstrap=bootstrap.Toast.getOrCreateInstance(toastLive);
+      toastBootstrap.show();
+      form.reset();
+    });
+  </script>
+</body>
+</html>
