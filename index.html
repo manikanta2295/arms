@@ -312,12 +312,12 @@ form.addEventListener("submit", async (e) => {
 
     const result = await response.json();
 
-    if (response.ok && result.status === "Emails sent successfully!") {
-      statusText.textContent = "✅ Message sent successfully!";
+    if (response.ok && result.success) {
+      statusText.textContent = "✅ " + (result.message || "Message sent successfully!");
       statusText.style.color = "green";
       form.reset();
     } else {
-      statusText.textContent = "❌ Failed to send message. Please try again.";
+      statusText.textContent = "❌ " + (result.message || "Failed to send message. Please try again.");
       statusText.style.color = "red";
     }
   } catch (error) {
@@ -326,6 +326,7 @@ form.addEventListener("submit", async (e) => {
     statusText.style.color = "red";
   }
 });
+
 
   </script>
 </body>
